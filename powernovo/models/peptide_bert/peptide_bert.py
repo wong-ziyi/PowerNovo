@@ -202,6 +202,15 @@ class PeptideBert(nn.Module):
                 predicted_ = pred_seq[pred_idx]
                 aa_scores = scores[scores_idx: scores_idx + len(predicted_)].cpu().numpy()
                 scores_idx += len(predicted_)
+
+                # Handle potential issues during normalization
+                if np.max(aa_scores) == np.min(aa_scores):
+                    aa_scores_norm = np.zeros_like(aa_scores)  # Set to zero if no range
+                else:
+                    aa_scores_norm = (aa_scores - np.min(aa_scores)) / (np.max(aa_scores) - np.min(aa_scores))
+
+                # Handle potential NaNs in aa_scores_norm
+
                 aa_scores_norm = (aa_scores - np.min(aa_scores)) / (np.max(aa_scores) - np.min(aa_scores))
                 aa_scores_norm_err = (1.0 - aa_scores_norm) / 2.0
                 aa_scores = aa_scores - aa_scores_norm_err
