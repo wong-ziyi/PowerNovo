@@ -1,3 +1,6 @@
+This branch aims to fix the error below:
+RuntimeWarning: invalid value encountered in divide
+  aa_scores_norm = (aa_scores - np.min(aa_scores)) / (np.max(aa_scores) - np.min(aa_scores))
 # PowerNovo: A New Efficient Tool for De Novo Peptide Sequencing #
 <img title="a title" alt="Alt text" src="/images/Logo1.png">
 
